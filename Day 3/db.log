@@ -1,0 +1,382 @@
+meanStack> use FacultySystemDB
+switched to db FacultySystemDB
+FacultySystemDB> show collections
+student
+FacultySystemDB> db.student.insert({fname:"walaa" , lname:"tarek" ,age:20 ,faculty:{name:"faculty of science" , address:"giza"} , grades:[{courseName:"nodejs" ,grade:80 , pass:true}] , isFired:false})
+DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('68ad8e2bc39c5fb9ae89b04a') }
+}
+FacultySystemDB> db.student.insert({fname:"malak" , lname:"sobhy" ,age:21 ,faculty:{name:"faculty of science" , address:"giza"} , grades:[{courseName:"express" ,grade:90 , pass:true}] , isFired:false})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('68ad8e51c39c5fb9ae89b04b') }
+}
+FacultySystemDB> db.student.insert({fname:"menna" , lname:"ayman" ,age:21 ,faculty:{name:"faculty of science" , address:"giza"} , grades:[{courseName:"nodejs" ,grade:70 , pass:true},{courseName:"Angular" , grade:90 , pass:true}] , isFired:true})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('68ad8e8fc39c5fb9ae89b04c') }
+}
+FacultySystemDB> db.student.find()
+[
+  {
+    _id: ObjectId('68ad8e2bc39c5fb9ae89b04a'),
+    fname: 'walaa',
+    lname: 'tarek',
+    age: 20,
+    faculty: { name: 'faculty of science', address: 'giza' },
+    grades: [ { courseName: 'nodejs', grade: 80, pass: true } ],
+    isFired: false
+  },
+  {
+    _id: ObjectId('68ad8e51c39c5fb9ae89b04b'),
+    fname: 'malak',
+    lname: 'sobhy',
+    age: 21,
+    faculty: { name: 'faculty of science', address: 'giza' },
+    grades: [ { courseName: 'express', grade: 90, pass: true } ],
+    isFired: false
+  },
+  {
+    _id: ObjectId('68ad8e8fc39c5fb9ae89b04c'),
+    fname: 'menna',
+    lname: 'ayman',
+    age: 21,
+    faculty: { name: 'faculty of science', address: 'giza' },
+    grades: [
+      { courseName: 'nodejs', grade: 70, pass: true },
+      { courseName: 'Angular', grade: 90, pass: true }
+    ],
+    isFired: true
+  }
+]
+FacultySystemDB> db.student.insertMany([ {fname:"esraa" ,lname:"hassan" ,age:21 ,faculty:{name:"faculty of science" , address:"giza"} ,grades:[{courseName:"nodejs" ,grade:70 , pass:true},{courseName:"Angular" , grade:90 , pass:true}] , isFired:false  } ,  {fname:"hana" ,lname:"fady" ,age:18 ,faculty:{name:"faculty of art" , address:"giza"} ,grades:[{courseName:"nodejs" ,grade:70 , pass:true},{courseName:"db" , grade:50 , pass:false}] , isFired:false }  ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('68ad9055c39c5fb9ae89b04d'),
+    '1': ObjectId('68ad9055c39c5fb9ae89b04e')
+  }
+}
+FacultySystemDB> db.student.find()
+[
+  {
+    _id: ObjectId('68ad8e2bc39c5fb9ae89b04a'),
+    fname: 'walaa',
+    lname: 'tarek',
+    age: 20,
+    faculty: { name: 'faculty of science', address: 'giza' },
+    grades: [ { courseName: 'nodejs', grade: 80, pass: true } ],
+    isFired: false
+  },
+  {
+    _id: ObjectId('68ad8e51c39c5fb9ae89b04b'),
+    fname: 'malak',
+    lname: 'sobhy',
+    age: 21,
+    faculty: { name: 'faculty of science', address: 'giza' },
+    grades: [ { courseName: 'express', grade: 90, pass: true } ],
+    isFired: false
+  },
+  {
+    _id: ObjectId('68ad8e8fc39c5fb9ae89b04c'),
+    fname: 'menna',
+    lname: 'ayman',
+    age: 21,
+    faculty: { name: 'faculty of science', address: 'giza' },
+    grades: [
+      { courseName: 'nodejs', grade: 70, pass: true },
+      { courseName: 'Angular', grade: 90, pass: true }
+    ],
+    isFired: true
+  },
+  {
+    _id: ObjectId('68ad9055c39c5fb9ae89b04d'),
+    fname: 'esraa',
+    lname: 'hassan',
+    age: 21,
+    faculty: { name: 'faculty of science', address: 'giza' },
+    grades: [
+      { courseName: 'nodejs', grade: 70, pass: true },
+      { courseName: 'Angular', grade: 90, pass: true }
+    ],
+    isFired: false
+  },
+  {
+    _id: ObjectId('68ad9055c39c5fb9ae89b04e'),
+    fname: 'hana',
+    lname: 'fady',
+    age: 18,
+    faculty: { name: 'faculty of art', address: 'giza' },
+    grades: [
+      { courseName: 'nodejs', grade: 70, pass: true },
+      { courseName: 'db', grade: 50, pass: false }
+    ],
+    isFired: false
+  }
+]
+FacultySystemDB> db.student.find({fname:"malak"})
+[
+  {
+    _id: ObjectId('68ad8e51c39c5fb9ae89b04b'),
+    fname: 'malak',
+    lname: 'sobhy',
+    age: 21,
+    faculty: { name: 'faculty of science', address: 'giza' },
+    grades: [ { courseName: 'express', grade: 90, pass: true } ],
+    isFired: false
+  }
+]
+FacultySystemDB> db.student.find({$or:[{fname:"malak"},{lname:"hassan"}]})
+[
+  {
+    _id: ObjectId('68ad8e51c39c5fb9ae89b04b'),
+    fname: 'malak',
+    lname: 'sobhy',
+    age: 21,
+    faculty: { name: 'faculty of science', address: 'giza' },
+    grades: [ { courseName: 'express', grade: 90, pass: true } ],
+    isFired: false
+  },
+  {
+    _id: ObjectId('68ad9055c39c5fb9ae89b04d'),
+    fname: 'esraa',
+    lname: 'hassan',
+    age: 21,
+    faculty: { name: 'faculty of science', address: 'giza' },
+    grades: [
+      { courseName: 'nodejs', grade: 70, pass: true },
+      { courseName: 'Angular', grade: 90, pass: true }
+    ],
+    isFired: false
+  }
+]
+FacultySystemDB> db.student.find({fname:{$ne:"malak"}})
+[
+  {
+    _id: ObjectId('68ad8e2bc39c5fb9ae89b04a'),
+    fname: 'walaa',
+    lname: 'tarek',
+    age: 20,
+    faculty: { name: 'faculty of science', address: 'giza' },
+    grades: [ { courseName: 'nodejs', grade: 80, pass: true } ],
+    isFired: false
+  },
+  {
+    _id: ObjectId('68ad8e8fc39c5fb9ae89b04c'),
+    fname: 'menna',
+    lname: 'ayman',
+    age: 21,
+    faculty: { name: 'faculty of science', address: 'giza' },
+    grades: [
+      { courseName: 'nodejs', grade: 70, pass: true },
+      { courseName: 'Angular', grade: 90, pass: true }
+    ],
+    isFired: true
+  },
+  {
+    _id: ObjectId('68ad9055c39c5fb9ae89b04d'),
+    fname: 'esraa',
+    lname: 'hassan',
+    age: 21,
+    faculty: { name: 'faculty of science', address: 'giza' },
+    grades: [
+      { courseName: 'nodejs', grade: 70, pass: true },
+      { courseName: 'Angular', grade: 90, pass: true }
+    ],
+    isFired: false
+  },
+  {
+    _id: ObjectId('68ad9055c39c5fb9ae89b04e'),
+    fname: 'hana',
+    lname: 'fady',
+    age: 18,
+    faculty: { name: 'faculty of art', address: 'giza' },
+    grades: [
+      { courseName: 'nodejs', grade: 70, pass: true },
+      { courseName: 'db', grade: 50, pass: false }
+    ],
+    isFired: false
+  }
+]
+FacultySystemDB> db.student.find({age:{$lt:21}})
+[
+  {
+    _id: ObjectId('68ad8e2bc39c5fb9ae89b04a'),
+    fname: 'walaa',
+    lname: 'tarek',
+    age: 20,
+    faculty: { name: 'faculty of science', address: 'giza' },
+    grades: [ { courseName: 'nodejs', grade: 80, pass: true } ],
+    isFired: false
+  },
+  {
+    _id: ObjectId('68ad9055c39c5fb9ae89b04e'),
+    fname: 'hana',
+    lname: 'fady',
+    age: 18,
+    faculty: { name: 'faculty of art', address: 'giza' },
+    grades: [
+      { courseName: 'nodejs', grade: 70, pass: true },
+      { courseName: 'db', grade: 50, pass: false }
+    ],
+    isFired: false
+  }
+]
+FacultySystemDB> db.student.find({isFired:true})
+[
+  {
+    _id: ObjectId('68ad8e8fc39c5fb9ae89b04c'),
+    fname: 'menna',
+    lname: 'ayman',
+    age: 21,
+    faculty: { name: 'faculty of science', address: 'giza' },
+    grades: [
+      { courseName: 'nodejs', grade: 70, pass: true },
+      { courseName: 'Angular', grade: 90, pass: true }
+    ],
+    isFired: true
+  }
+]
+FacultySystemDB> db.student.find({age:{$gte:21} ,faculty:{$ne:""} })
+[
+  {
+    _id: ObjectId('68ad8e51c39c5fb9ae89b04b'),
+    fname: 'malak',
+    lname: 'sobhy',
+    age: 21,
+    faculty: { name: 'faculty of science', address: 'giza' },
+    grades: [ { courseName: 'express', grade: 90, pass: true } ],
+    isFired: false
+  },
+  {
+    _id: ObjectId('68ad8e8fc39c5fb9ae89b04c'),
+    fname: 'menna',
+    lname: 'ayman',
+    age: 21,
+    faculty: { name: 'faculty of science', address: 'giza' },
+    grades: [
+      { courseName: 'nodejs', grade: 70, pass: true },
+      { courseName: 'Angular', grade: 90, pass: true }
+    ],
+    isFired: true
+  },
+  {
+    _id: ObjectId('68ad9055c39c5fb9ae89b04d'),
+    fname: 'esraa',
+    lname: 'hassan',
+    age: 21,
+    faculty: { name: 'faculty of science', address: 'giza' },
+    grades: [
+      { courseName: 'nodejs', grade: 70, pass: true },
+      { courseName: 'Angular', grade: 90, pass: true }
+    ],
+    isFired: false
+  }
+]
+FacultySystemDB> db.student.find({fname:"walaa"} ,{age:0 , _id: 0 ,faculty:0 ,grade:0})
+[
+  {
+    fname: 'walaa',
+    lname: 'tarek',
+    grades: [ { courseName: 'nodejs', grade: 80, pass: true } ],
+    isFired: false
+  }
+]
+FacultySystemDB> db.student.find({fname:"walaa"} ,{age:0 , _id: 0 ,faculty:0 ,grades:0})
+[ { fname: 'walaa', lname: 'tarek', isFired: false } ]
+FacultySystemDB> db.student.updateOne({fname:"malak"} ,{$set:{lname:"abdelaty"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+FacultySystemDB> db.student.deleteOne({isFired:"true"})
+{ acknowledged: true, deletedCount: 0 }
+FacultySystemDB> db.student.deleteOne({isFired:true})
+{ acknowledged: true, deletedCount: 1 }
+FacultySystemDB> db.createCollection("dr")
+{ ok: 1 }
+FacultySystemDB> db.dr.drop()
+true
+FacultySystemDB> show dbs
+BookMe           108.00 KiB
+FacultySystemDB   72.00 KiB
+admin             40.00 KiB
+bookstoreDB      252.00 KiB
+config           108.00 KiB
+local            160.00 KiB
+meanStack        216.00 KiB
+restaurantDB     132.00 KiB
+ticketyBoom      188.00 KiB
+FacultySystemDB> use test
+switched to db test
+test> drop test
+Uncaught:
+SyntaxError: Missing semicolon. (1:4)
+
+> 1 | drop test
+    |     ^
+  2 |
+
+test> db.dropDataBase()
+TypeError: db.dropDataBase is not a function
+test> db.dropDatabase()
+{ ok: 1, dropped: 'test' }
+test> use FacultySystemV2
+switched to db FacultySystemV2
+FacultySystemV2> db.createCollection("student")
+{ ok: 1 }
+FacultySystemV2> db.createCollection("faculty")
+{ ok: 1 }
+FacultySystemV2> db.createCollection("course")
+{ ok: 1 }
+FacultySystemV2> db.faculty.insert({name:"faculty of art" , address:"gize"})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('68ad94a4c39c5fb9ae89b04f') }
+}
+FacultySystemV2> db.faculty.insert({name:"faculty of science" , address:"gize"}) 
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('68ad94b8c39c5fb9ae89b050') }
+}
+FacultySystemV2> db.course.insert({name:"node" ,mark:100})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('68ad94ebc39c5fb9ae89b051') }
+}
+FacultySystemV2> db.faculty.find()
+[
+  {
+    _id: ObjectId('68ad94a4c39c5fb9ae89b04f'),
+    name: 'faculty of art',
+    address: 'gize'
+  },
+  {
+    _id: ObjectId('68ad94b8c39c5fb9ae89b050'),
+    name: 'faculty of science',
+    address: 'gize'
+  }
+]
+FacultySystemV2> db.course.find()
+[
+  {
+    _id: ObjectId('68ad94ebc39c5fb9ae89b051'),
+    name: 'node',
+    mark: 100
+  }
+]
+FacultySystemV2> db.student.insert({fname:"malak" ,lname:"sobhy" , isFired:false , facultyId : objectId:"" ,registeredCourse:[{} ,{}]})
+... 
+FacultySystemV2> db.student.insert({fname:"malak" ,lname:"sobhy" , isFired:false , facultyId : objectId:"" ,registeredCourse:[{} ,{}]})
+... 
+FacultySystemV2> db.student.insert({fname:"malak" ,lname:"sobhy" , isFired:false , facultyId : ObjectId('68ad94b8c39c5fb9ae89b050') ,registeredCourse:[{cid:ObjectId('68ad94ebc39c5fb9ae89b051') , grade:100} ,{cid:ObjectId('68ad94ebc39c5fb9ae89b051') , grade:100  }]})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('68ad9612c39c5fb9ae89b052') }
+}
+FacultySystemV2> 
