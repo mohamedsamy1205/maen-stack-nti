@@ -1,0 +1,26 @@
+<div class="auth">
+  <ng-container *ngIf="!isLoggedIn(); else mainTpl">
+    <form (ngSubmit)="login()" #loginForm="ngForm" class="login-form">
+      <h2>Login</h2>
+      <div class="field">
+        <label>Username</label>
+        <input name="username" [(ngModel)]="username" required />
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input name="password" type="password" [(ngModel)]="password" required />
+      </div>
+      <button type="submit">Login</button>
+      <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
+    </form>
+  </ng-container>
+  <ng-template #mainTpl>
+    <div class="topbar">
+      <span>Welcome, {{ auth.currentUser() }}</span>
+      <button type="button" (click)="logout()">Logout</button>
+    </div>
+    <app-student-list></app-student-list>
+    <div style="margin-top:16px"></div>
+    <app-products></app-products>
+  </ng-template>
+</div>
